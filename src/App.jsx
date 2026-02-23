@@ -1,4 +1,5 @@
 import { useState } from "react";
+import BookInput from "./components/BookInput.jsx";
 
 import "./App.css";
 
@@ -8,9 +9,10 @@ function App() {
   const [bookAuthor, setBookAuthor] = useState("");
 
   const handleAddBook = () => {
-    const title = "title";
-    const author = "author";
-    const newBook = { title, author };
+    const newBook = {
+      title: bookTitle.trim(),
+      author: bookAuthor.trim() && `by ${bookAuthor.trim()}`,
+    };
     setBooks((prevBooks) => {
       if (prevBooks.length < 3) {
         return [...prevBooks, newBook];
@@ -49,10 +51,51 @@ function App() {
           </div>
         );
       })}
+      <BookInput
+        placeholder="Book Title"
+        value={bookTitle}
+        onChange={(e) => setBookTitle(e.target.value)}
+        onKeyDown={(e) => {
+          if (
+            e.key === "Enter" &&
+            bookTitle.trim() !== "" &&
+            books.length < 3
+          ) {
+            handleAddBook();
+            setBookTitle("");
+            setBookAuthor("");
+          }
+        }}
+        disabled={books.length >= 3}
+      />
+
+      <BookInput
+        placeholder="Book Author"
+        value={bookAuthor}
+        onChange={(e) => setBookAuthor(e.target.value)}
+        onKeyDown={(e) => {
+          if (
+            e.key === "Enter" &&
+            bookTitle.trim() !== "" &&
+            books.length < 3
+          ) {
+            handleAddBook();
+            setBookTitle("");
+            setBookAuthor("");
+          }
+        }}
+        disabled={books.length >= 3}
+      />
       <button
         className="add-button"
-        onClick={handleAddBook}
-        disabled={books.length >= 3}
+        onClick={() => {
+          if (bookTitle.trim() !== "") {
+            handleAddBook();
+            setBookTitle("");
+            setBookAuthor("");
+          }
+        }}
+        disabled={books.length >= 3 || bookTitle.trim() === ""}
       >
         Add Book
       </button>

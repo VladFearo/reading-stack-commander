@@ -84,3 +84,26 @@
   margin: 0;
   color: #666;
 }
+
+.book-input {
+  width: 100%;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.book-input:focus {
+  outline: none;
+  border-color: #555;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
+}
+
+.book-input::placeholder {
+  color: #999;
+}
